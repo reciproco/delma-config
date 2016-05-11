@@ -1,0 +1,5 @@
+# Database settings.
+db_user: "{{ app_name }}"
+db_name: "{{ app_name }}"
+db_password: password
+

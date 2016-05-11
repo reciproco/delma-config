@@ -4,9 +4,12 @@
 
 
 - name: Installing base packages
-  yum: name={{ item }} state=installed
+  dnf: name={{ item }} state=installed
   with_items:
     - git
+    - python3
+    - python3-psycopg2
+    - python3-devel
     - htop
     - ntp
     - wget
