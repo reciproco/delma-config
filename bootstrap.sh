@@ -1,4 +1,5 @@
 #!/bin/bash
 
-
-sudo dnf -y install ansible git python-dnf
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install ansible
