@@ -1,0 +1,12 @@
+
+
+
+
+
+- name: Installing base packages
+  yum: name={{ item }} state=installed
+  whith_items:
+    - git
+    - python34
+    - htop
+    - ntp
