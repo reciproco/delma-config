@@ -7,6 +7,48 @@
 
   tasks:
     - name: Clone/pull project repo
+      become_user: www-data
       git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes
       notify:
       - restart gunicorn
+
+    - name: Create the virtualenv to install the Python requirements
+      become_user: www-data
+      command: >
+          pyvenv {{ install_root }}/venv
+          creates={{ install_root }}/venv/bin/pip
+
+    - name : install python requirements
+      become_user: www-data
+      command: >
+          {{ install_root }}/venv/bin/pip install -r {{ install_root }}/{{ project_name }}/requirements.txt
+          chdir={{ install_root }}/{{ project_name }}
+
+    - name: copy nginx config
+      template: src=files/nginx.j2 dest=/etc/nginx/sites-enabled/{{ project_name }}.conf
+      notify:
+      - restart nginx
+
+    - name: copy supervisor config
+      template: src=files/supervisor.j2 dest=/etc/supervisor/conf.d/{{ project_name }}.conf
+      notify:
+      - restart supervisor
+
+    - name: django migrate
+      django_manage: command=migrate app_path={{ install_root }}/{{ project_name }} pythonpath={{ pythonpath }} virtualenv={{ install_root }}/venv
+
+    - name: django collectstatic
+      django_manage: command=collectstatic app_path={{ install_root }}/{{ project_name }} pythonpath={{ pythonpath }} virtualenv={{ install_root }}/venv
+
+    - name: make sure nginx server is running
+      service: name=nginx state=started enabled=yes
+
+    - name: make sure supervisor server is running
+      service: name=supervisor state=started enabled=yes
+
+  handlers: 
+    - name: restart nginx
+      service: name=nginx state=restarted
+
+    - name: restart supervisor
+      service: name=supervisor state=restarted

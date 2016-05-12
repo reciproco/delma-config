@@ -63,9 +63,10 @@ db_password: changeme
 system_packages:
   - git
   - python3-venv
+  - python3-pip
   - nginx
   - htop
-  - gunicorn
+  - supervisor
   - postgresql
   - postgresql-server-dev-all
   - python-psycopg2
