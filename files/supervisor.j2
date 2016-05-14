@@ -2,6 +2,5 @@
 command={{ install_root }}/venv/bin/gunicorn --workers 1 --bind 127.0.0.1:8000 {{ wsgi_module }}:application --log-level=debug --log-file=-
 directory={{ install_root }}/{{ project_name }}
 user=www-data
-environment=PYTHONPATH={{ install_root }}/{{ project_name }}:{{ pythonpath }}
 autostart=true
 autorestart=true

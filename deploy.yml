@@ -35,16 +35,16 @@
       - restart supervisor
 
     - name: django migrate
-      django_manage: command=migrate app_path={{ install_root }}/{{ project_name }} pythonpath={{ pythonpath }} virtualenv={{ install_root }}/venv
+      django_manage: command=migrate app_path={{ install_root }}/{{ project_name }} virtualenv={{ install_root }}/venv
 
     - name: django collectstatic
-      django_manage: command=collectstatic app_path={{ install_root }}/{{ project_name }} pythonpath={{ pythonpath }} virtualenv={{ install_root }}/venv
+      django_manage: command=collectstatic app_path={{ install_root }}/{{ project_name }} virtualenv={{ install_root }}/venv
 
     - name: make sure nginx server is running
-      service: name=nginx state=started enabled=yes
+      service: name=nginx state=restarted enabled=yes
 
     - name: make sure supervisor server is running
-      service: name=supervisor state=started enabled=yes
+      service: name=supervisor state=restarted enabled=yes
 
   handlers: 
     - name: restart nginx

@@ -1,6 +1,6 @@
 ---
 # a unix path-friendly name (IE, no spaces or special characters)
-project_name: django_hello
+project_name: delma
 
 # the base path to install to. You should not need to change this.
 install_root: /webapps
@@ -18,13 +18,13 @@ install_root: /webapps
 # ├── manage.py
 # └── requirements.txt
 # the correct wsgi_module value would be `hello.wsgi`
-wsgi_module: hello.wsgi
+wsgi_module: delma.wsgi
 
 # any directories that need to be added to the PYTHONPATH.
-pythonpath: "{{ install_root }}/{{ project_name }}/hello/apps"
+#pythonpath: "{{ install_root }}/{{ project_name }}/hello/apps"
 
 # the git repository URL for the project
-project_repo: ssh://git@github.com/reciproco/django-hello-world.git
+project_repo: ssh://git@github.com/reciproco/delma.git
     
 # a private key that has access to the repository URL
 ssh_private_key: ~/.ssh/id_rsa
@@ -37,7 +37,7 @@ ssh_private_key: ~/.ssh/id_rsa
 static_root: "{{ install_root }}/{{ project_name }}/static"
 
 # the dns name or names (space separated) for your server
-server_name: 192.168.1.40 
+server_name: delma.redil.xyz
 
 # database setup. Note that because this playbook doesn't touch the default 
 # postgres pg_hba.conf file, we use local password-based authentication for

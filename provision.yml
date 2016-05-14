@@ -13,6 +13,12 @@
     - name: Create directory for app
       file: path={{ install_root }}/{{ project_name }} state=directory owner=www-data
 
+    - name: Create directory for ssh
+      file: path=/var/www/.ssh state=directory owner=www-data
+
+    - name: Save ssh key to server
+      copy: src={{ ssh_private_key }} dest=/var/www/.ssh/id_rsa mode=600 owner=www-data
+
     - name: make sure postgresql server is running
       service: name=postgresql state=started
 
