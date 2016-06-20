@@ -16,6 +16,9 @@
     - name: Create directory for ssh
       file: path=/var/www/.ssh state=directory owner=www-data
 
+    - name: Create directory for media
+      file: path={{ install_root }}/media state=directory owner=www-data
+
     - name: Save ssh key to server
       copy: src={{ ssh_private_key }} dest=/var/www/.ssh/id_rsa mode=600 owner=www-data
 

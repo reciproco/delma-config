@@ -35,9 +35,11 @@
       - restart supervisor
 
     - name: django migrate
+      become_user: www-data
       django_manage: command=migrate app_path={{ install_root }}/{{ project_name }} virtualenv={{ install_root }}/venv
 
     - name: django collectstatic
+      become_user: www-data
       django_manage: command=collectstatic app_path={{ install_root }}/{{ project_name }} virtualenv={{ install_root }}/venv
 
     - name: make sure nginx server is running
